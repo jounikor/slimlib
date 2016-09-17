@@ -1,0 +1,105 @@
+
+sl4lib v0.1 (c) 2011 by Jouni 'Mr.Spiv' Korhonen
+
+This package of source codes is not GPL etc whatever, just copyrighted. Use it
+as you wish within the copyright.. I know most of you don't care what the
+license is anyway.
+
+Background:
+
+        sl4lib is my code base I have used to program Neoflash SlimLoader IV.
+        This has been my attempt to make cross platform utilities for non
+        Windows operating systems using portable libusb library as a base for
+        all USB communication. My main target operating systems is OSX. This
+        is in no way affiliated to Neoflash.
+
+        The target platform/cart _is_ PC Engine 64Mbits and 128Mbits carts.
+        Latest carts with save RAM are only partially supported i.e. the save
+        RAM features are left out simply because I have no such hardware to
+        test with.
+
+        I know reading GBA carts is possible. I have not worked on writing part
+        for GBA.
+
+        The USB protocol has been reverse engineered using Neoflash flash
+        utilities on Windows PC using "SniffUsb 2.0". That leaves me with a
+        lot of uncertain pieces when it comes to certain magical code blocks
+        the flash program sends to SlimLoader IV ;)
+
+        sl4lib has been a long project. Recently parts of it were used in my
+        Slim-e-loader GUI version 0.4. These codes were extracted from that and
+        'slightly' reworked (i.e. rewritten).
+
+        Note! The library is still under development. Parts of it are still
+        not completed such as cart identification and bank switching. Not to
+        mention GBA support. I am releasing the code as I need to move to other
+        things for a chance. If you have problems with the code, it is not
+        my problem ;) I would appreciate constructive feedback.. and yes, my
+        coding style sucks.
+
+How to use:
+
+        You need linusb-1.0 or better. Get that for your favorite target
+        operating system. I used and tested only OSX 10.6.6. For other
+        operating systems tweak the Makefile. It already has templates for
+        Windows and Linux (from my older projects).
+
+        Type 'make' and the sl4lib with and example command line application
+        should compile for you.
+
+Files:
+
+        include/slimusb.h       Contains the slimLoaderV4 base class and
+                                other essential classes for callbacks and such. 
+        include/slimexc.h       Contains a set of exception classes.
+        include/pcetools.h      Contains a pcetools class which has methods to
+                                remove ROM header, patch TG-16 region code,
+                                mirror bytes in a buffer (to flash a ROM for
+                                TG-16 hardware), and calculating a position
+                                for a ROM in the cart (useful for multi ROM
+                                menus).
+        source/slimusb.cpp      Implements slimLoaderV4 base class and all
+                                lower level libusb interactions.
+        source/pcetools.cpp     Implements pcetools class methods.
+        source/main.cpp         Implements an example command line application
+                                for flashing/dumping ROMs.
+        sl4lib                  Command line utility using sl4lib.
+
+Example program:
+
+        Type 'sl4lib' and you will see:
+
+
+
+        SL4lib flash tool v0.1 (c) 2011 Jouni 'Mr.Spiv' Korhonen
+
+        Usage: sl4lib command [options] [files..]
+        Commands:
+          i  Read cart ID information strings
+          d  Dump cart to a file
+          f  Flash file(s) to a cart
+          v  Format and verify a cart (not implemented)
+       Options:
+          -h        Display help
+          -t        Mirror every byte (for TG16 compatibility)
+          -p        Try patching away TG16 region check code
+          -r        Remove 'ROM header'
+          -s start  Set cart start position (in Mbits, default 0)
+          -l length Set cart dump length (in Mbits, defaults to cart size)
+          -m size   Set  cart size (in Mbits, default 128)
+       Files..:
+          For dumping only one file name is used.
+          When flashing multiple ROM, then multiple files can be defined,
+          unless the start position of the ROM is forced using the -s option.
+          When flashing multiple ROMs, the first ROM always gets positioned
+          at the beginning of the cart. The rest will be placed into an
+          optimal place depending on the ROM size and available space.
+
+Contact information:
+
+	email jouni.korhonen at iki.fi
+
+
+
+
+
