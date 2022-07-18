@@ -5,7 +5,7 @@ SOURCES		:=	source
 INCLUDES	:=	include
 BUILD		:=	build
 TARGET		:=	sl4lib
-ARCH		:=	i386
+ARCH		:=	x86_64
 LIBUSB		:=	/usr/local/include/libusb-1.0
 
 
@@ -44,7 +44,8 @@ ifneq (,$(findstring Darwin,$(UNAME)))
 	CXXFLAGS	+= -arch $(ARCH) -I$(LIBUSB)
 endif
 
-LDLIBS := /usr/local/lib/libusb-1.0.a $(SYS_LIB_PATH) $(SYS_LIBS)
+#LDLIBS := /usr/local/lib/libusb-1.0.a $(SYS_LIB_PATH) $(SYS_LIBS)
+LDLIBS := -lusb-1.0 $(SYS_LIB_PATH) $(SYS_LIBS)
 
 LINKFLTK	:=
 
